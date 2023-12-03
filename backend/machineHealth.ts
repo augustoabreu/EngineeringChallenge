@@ -42,23 +42,16 @@ export const getMachineHealth = (req: Request) => {
     return {error: 'Invalid input format'};
   }
 
-  const machineScores: {
-    [key in MachineType]?: string;
-  } = {};
+  const machineScores: Partial<Record<MachineType, string>> = {};
   let factoryScore = 0;
   let machineCount = 0;
 
   // Calculate scores for each machine
-  for (const machineName in machines) {
-    const machine = machines[machineName as MachineType] as Record<
-      | WeldingRobotPart
-      | AssemblyLinePart
-      | PaintingStationPart
-      | QualityControlStationPart,
-      string
-    >;
+  for (const m in machines) {
+    const machineName = m as MachineType;
+    const machine = machines[machineName];
     const machineScore = calculateMachineHealth(
-      machineName as MachineType,
+      machineName,
       Object.keys(machine).reduce((parts: partInfo[], partName) => {
         const partNameTyped = partName as
           | WeldingRobotPart
@@ -73,7 +66,7 @@ export const getMachineHealth = (req: Request) => {
       }, []),
     );
 
-    machineScores[machineName as MachineType] = machineScore.toFixed(2);
+    machineScores[machineName] = machineScore.toFixed(2);
 
     factoryScore += machineScore;
     machineCount++;

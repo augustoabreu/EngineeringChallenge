@@ -8,6 +8,7 @@ Before you get started, make sure you have the following prerequisites installed
 
 - Node.js: [Download Node.js](https://nodejs.org/)
 - Yarn (optional but recommended, can use NPM instead): [Install Yarn](https://classic.yarnpkg.com/en/docs/install/)
+- PostgreSQL: [Download PostgreSQL](https://www.postgresql.org/download/macosx/)
 
 ## Installation
 
@@ -24,6 +25,8 @@ Follow these steps to set up the BellSant Machine Health API:
    ```bash
    yarn
    ```
+
+3. Copy the file `.env.TEMPLATE` and rename it to `.env`. Update the variable `DATABASE_URL` with you the correct PostgreSQL URL
 
 ## Usage
 

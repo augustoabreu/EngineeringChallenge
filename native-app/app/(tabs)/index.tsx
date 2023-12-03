@@ -6,6 +6,7 @@ import {useMachineData} from '../useMachineData';
 import {useCallback, useState} from 'react';
 import {PartsOfMachine} from '../../components/PartsOfMachine';
 import {MachineScore} from '../../components/MachineScore';
+import { GoogleSignin } from '@react-native-google-signin/google-signin';
 
 let apiUrl: string =
   'https://fancy-dolphin-65b07b.netlify.app/api/machine-health';
@@ -17,20 +18,15 @@ if (__DEV__) {
 }
 
 export default function StateScreen() {
-  const {machineData, resetMachineData, loadMachineData, setScores} =
+  const {machineData, resetMachineData, setScores} =
     useMachineData();
-
-  //Doing this because we're not using central state like redux
-  useFocusEffect(
-    useCallback(() => {
-      loadMachineData();
-    }, []),
-  );
 
   const calculateHealth = useCallback(async () => {
     try {
+      const userId = (await GoogleSignin.getCurrentUser()).user.id;
       const response = await axios.post(apiUrl, {
         machines: machineData?.machines,
+        userId: userId
       });
 
       if (response.data?.factory) {
@@ -110,7 +106,7 @@ export default function StateScreen() {
       <View style={styles.resetButton}>
         <Button
           title='Reset Machine Data'
-          onPress={async () => await resetMachineData()}
+          onPress={async () => resetMachineData()}
           color='#FF0000'
         />
       </View>

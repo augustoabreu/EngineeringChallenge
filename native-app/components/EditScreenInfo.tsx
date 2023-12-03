@@ -12,7 +12,7 @@ export default function EditScreenInfo({path}: {path: string}) {
   const [partName, setPartName] = useState('');
   const [partValue, setPartValue] = useState('');
   const [isSaved, setIsSaved] = useState(false);
-  const {machineData, updateMachineData, loadMachineData} = useMachineData();
+  const {machineData, updateMachineData} = useMachineData();
 
   const machineNames = [
     {label: 'Welding Robot', value: MachineType.WeldingRobot},
@@ -92,7 +92,7 @@ export default function EditScreenInfo({path}: {path: string}) {
 
       newMachineData.machines[machineName][partName] = partValue;
 
-      await updateMachineData(newMachineData);
+      updateMachineData(newMachineData);
       setIsSaved(true);
       setTimeout(() => {
         setIsSaved(false);
@@ -102,13 +102,6 @@ export default function EditScreenInfo({path}: {path: string}) {
       throw error; // Handle API errors appropriately
     }
   }, [machineData, updateMachineData, machineName, partName, partValue]);
-
-  //Doing this because we're not using central state like redux
-  useFocusEffect(
-    useCallback(() => {
-      loadMachineData();
-    }, []),
-  );
 
   return (
     <View>

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "16250107413",
+    "project_id": "health-test-dceb5",
+    "storage_bucket": "health-test-dceb5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:16250107413:android:32e80a1f4508c881ed001c",
+        "android_client_info": {
+          "package_name": "com.machinehealth.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAtxyWmeEb4MBVJWA729oYG0JnCNUQiGNY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

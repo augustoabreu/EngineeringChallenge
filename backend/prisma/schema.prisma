@@ -1,0 +1,41 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model UserScore {
+  id           String @default(uuid())
+  userId       String
+  factoryScore String
+
+  machineScores MachineScore[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@id([id, userId])
+}
+
+model MachineScore {
+  id     String @default(uuid())
+  userId String
+
+  machineName String
+  score       String
+
+  userScoreId     String?
+  userScoreUserId String?
+  userScore       UserScore? @relation(fields: [userScoreId, userScoreUserId], references: [id, userId])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@id([id, userId])
+}
